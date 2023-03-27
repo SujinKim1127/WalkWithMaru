@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import color from "../util/color";
 import { Icon } from "@iconify/react";
+import color from "../util/color";
 
 const { green, sky, purple, yellow, pink, brown } = color;
 
