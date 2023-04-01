@@ -1,17 +1,37 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { dbService } from "../firebase";
 
 export interface TProps {
+  selectedDate: Date;
+  name: String;
   isTimeOpen: boolean;
   setIsTimeOpen: (classname: boolean) => void;
 }
 
-const TimeModal = ({ isTimeOpen, setIsTimeOpen }: TProps) => {
+const TimeModal = ({
+  selectedDate,
+  name,
+  isTimeOpen,
+  setIsTimeOpen,
+}: TProps) => {
+  console.log("name", name);
+
   const [morn, setMorn] = useState("morn");
   const openModalHandler = () => {
+    console.log("name", name);
+
     setIsTimeOpen(!isTimeOpen);
   };
-  console.log("isTimeopne", isTimeOpen);
+
+  const onSubmit = async () => {
+    await dbService.collection("day").add({
+      name: name,
+      time: morn,
+      createdAt: selectedDate,
+    });
+  };
+
   return (
     <ModalContainer>
       {isTimeOpen ? (
@@ -38,7 +58,10 @@ const TimeModal = ({ isTimeOpen, setIsTimeOpen }: TProps) => {
             <ModalBtns>
               <button
                 className="cancel"
-                onClick={() => setIsTimeOpen(!isTimeOpen)}
+                onClick={() => {
+                  setIsTimeOpen(!isTimeOpen);
+                  onSubmit();
+                }}
               >
                 완료
               </button>
