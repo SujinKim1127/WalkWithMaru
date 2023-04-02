@@ -3,11 +3,21 @@ import { Icon } from "@iconify/react";
 import color from "../util/color";
 import MemberModal from "./MemberModal";
 import { useState } from "react";
+import TimeModal from "./TimeModal";
 
 const { green, sky, purple, yellow, pink, brown } = color;
 
-const Member = () => {
+export interface SProps {
+  selectedDate: Date;
+}
+
+const Member = ({ selectedDate }: SProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isTimeOpen, setIsTimeOpen] = useState(false);
+  const [username, setUserName] = useState("");
+  const [time, setTime] = useState(new Date());
+  const [clickname, setClickname] = useState("");
+
   return (
     <Container>
       <HeaderBox>
@@ -19,10 +29,60 @@ const Member = () => {
       </HeaderBox>
       <MemberBox>
         <UserBox>
-          <UserNametxt>수진&nbsp;</UserNametxt>
-          <UserPlusbtn>
-            <Icon icon="ic:round-plus" />
-          </UserPlusbtn>
+          <PersonalBox color={green}>
+            <UserNametxt>태훈&nbsp;</UserNametxt>
+            <UserPlusbtn>
+              <Icon
+                icon="ic:round-plus"
+                onClick={() => {
+                  setIsTimeOpen(true);
+                  setClickname("태훈");
+                }}
+              />
+            </UserPlusbtn>
+          </PersonalBox>
+          <PersonalBox color={sky}>
+            <UserNametxt>유정&nbsp;</UserNametxt>
+            <UserPlusbtn>
+              <Icon
+                icon="ic:round-plus"
+                onClick={() => {
+                  setIsTimeOpen(true);
+                  setClickname("유정");
+                }}
+              />
+            </UserPlusbtn>
+          </PersonalBox>
+          <PersonalBox color={brown}>
+            <UserNametxt>지은&nbsp;</UserNametxt>
+            <UserPlusbtn>
+              <Icon
+                icon="ic:round-plus"
+                onClick={() => {
+                  setIsTimeOpen(true);
+                  setClickname("지은");
+                }}
+              />
+            </UserPlusbtn>
+          </PersonalBox>
+          <PersonalBox color={yellow}>
+            <UserNametxt>수진&nbsp;</UserNametxt>
+            <UserPlusbtn>
+              <Icon
+                icon="ic:round-plus"
+                onClick={() => {
+                  setIsTimeOpen(true);
+                  setClickname("수진");
+                }}
+              />
+            </UserPlusbtn>
+          </PersonalBox>
+          <TimeModal
+            selectedDate={selectedDate}
+            name={clickname}
+            isTimeOpen={isTimeOpen}
+            setIsTimeOpen={setIsTimeOpen}
+          />
         </UserBox>
       </MemberBox>
     </Container>
@@ -58,11 +118,15 @@ const MemberBox = styled.div`
 `;
 
 const UserBox = styled.div`
+  display: flex;
+`;
+const PersonalBox = styled.div`
   width: 60px;
   height: 32px;
-  display: flex;
-  background-color: ${yellow};
   border-radius: 10px;
+  margin-right: 10px;
+  display: flex;
+  background-color: ${(props) => (props.color ? props.color : "gray")};
 `;
 
 const UserNametxt = styled.div`
@@ -72,6 +136,7 @@ const UserNametxt = styled.div`
 const UserPlusbtn = styled.div`
   display: flex;
   margin: auto 0;
+  cursor: pointer;
 `;
 
 export default Member;

@@ -8,14 +8,27 @@ import {
   addDays,
 } from "date-fns";
 import styled from "styled-components";
+import color from "../util/color";
+
+const { green, sky, purple, yellow, pink, brown } = color;
+
+interface UserColor {
+  name: string;
+}
 
 export interface CProps {
   currentMonth: Date;
   selectedDate: Date;
   onDateClick: any;
+  schedule: any;
 }
 
-const Cells = ({ currentMonth, selectedDate, onDateClick }: CProps) => {
+const Cells = ({
+  currentMonth,
+  selectedDate,
+  onDateClick,
+  schedule,
+}: CProps) => {
   const monthStart = startOfMonth(currentMonth);
   const monthEnd = endOfMonth(monthStart);
   const startDate = startOfWeek(monthStart);
@@ -25,7 +38,7 @@ const Cells = ({ currentMonth, selectedDate, onDateClick }: CProps) => {
   let days = [];
   let day = startDate;
   let formatDate = "";
-
+  console.log("cell schedule", schedule);
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
       formatDate = format(day, "d");
@@ -49,6 +62,7 @@ const Cells = ({ currentMonth, selectedDate, onDateClick }: CProps) => {
           >
             <Square>
               <Morning
+                name={"gray"}
                 className={
                   format(currentMonth, "M") !== format(day, "M")
                     ? "text not-valid"
@@ -56,6 +70,7 @@ const Cells = ({ currentMonth, selectedDate, onDateClick }: CProps) => {
                 }
               ></Morning>
               <Evening
+                name={"gray"}
                 className={
                   format(currentMonth, "M") !== format(day, "M")
                     ? "text not-valid"
@@ -123,7 +138,7 @@ const CellBox = styled.div`
 
 const RowBox = styled.div`
   display: flex;
-  height: 40px;
+  height: 65px;
   margin-bottom: 5px;
 `;
 
@@ -134,18 +149,36 @@ const Square = styled.div`
   margin: 2px auto;
 `;
 
-const Morning = styled.div`
+const Morning = styled.div<UserColor>`
   border-radius: 4px;
   width: 20px;
   height: 10px;
-  background-color: gray;
+  background-color: ${(props) =>
+    props.name === "수진"
+      ? yellow
+      : props.name === "태훈"
+      ? green
+      : props.name === "유정"
+      ? sky
+      : props.name === "지은"
+      ? brown
+      : "gray"};
 `;
 
-const Evening = styled.div`
+const Evening = styled.div<UserColor>`
   border-radius: 4px;
   width: 20px;
   height: 10px;
-  background-color: gray;
+  background-color: ${(props) =>
+    props.name === "수진"
+      ? yellow
+      : props.name === "태훈"
+      ? green
+      : props.name === "유정"
+      ? sky
+      : props.name === "지은"
+      ? brown
+      : "gray"};
 `;
 
 const Body = styled.div`

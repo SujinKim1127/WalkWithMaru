@@ -25,11 +25,12 @@ const TimeModal = ({
   };
 
   const onSubmit = async () => {
-    await dbService.collection("day").add({
+    await dbService.collection("days").add({
       name: name,
       time: morn,
-      createdAt: selectedDate,
+      day: selectedDate.toDateString(),
     });
+    setMorn("morn");
   };
 
   return (

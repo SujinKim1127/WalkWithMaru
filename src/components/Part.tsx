@@ -1,37 +1,79 @@
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import color from "../util/color";
+import { dbService } from "../firebase";
+import { useEffect, useRef, useState } from "react";
+import PersonPart from "./PersonPart";
 
 const { green, sky, purple, yellow, pink, brown } = color;
 
-const Part = () => {
+interface UserColor {
+  name: string;
+}
+
+export interface DProps {
+  selectedDate: Date;
+}
+
+const Part = ({ selectedDate }: DProps) => {
+  const [schedule, setSchedule] = useState<any>([]);
+
+  useEffect(() => {
+    dbService.collection("days").onSnapshot((snapshot) => {
+      const newArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      console.log("newArray", newArray);
+      setSchedule(newArray);
+    });
+  }, []);
+
   return (
     <Container>
       <MorningBox>
         <MorningText>
           <TextBox>아침</TextBox>
         </MorningText>
-        <MorningPartBox>
-          <UserBox>
-            <UserNametxt>수진&nbsp;</UserNametxt>
-            <UserDeletebtn>
-              <Icon icon="ic:round-close" />
-            </UserDeletebtn>
-          </UserBox>
-        </MorningPartBox>
+        {schedule.map((el: any, id: number) => {
+          return (
+            <>
+              {selectedDate.toDateString() === el.day ? (
+                el.time === "morn" ? (
+                  <MorningPartBox>
+                    <PersonPart daytimedata={el} />
+                  </MorningPartBox>
+                ) : (
+                  ""
+                )
+              ) : (
+                ""
+              )}
+            </>
+          );
+        })}
       </MorningBox>
       <EveningBox>
         <EveningText>
           <TextBox>저녁</TextBox>
         </EveningText>
-        <EveningPartBox>
-          <UserBox>
-            <UserNametxt>수진&nbsp;</UserNametxt>
-            <UserDeletebtn>
-              <Icon icon="ic:round-close" />
-            </UserDeletebtn>
-          </UserBox>
-        </EveningPartBox>
+        {schedule.map((el: any, id: number) => {
+          return (
+            <>
+              {selectedDate.toDateString() === el.day ? (
+                el.time === "even" ? (
+                  <EveningPartBox>
+                    <PersonPart daytimedata={el} />
+                  </EveningPartBox>
+                ) : (
+                  ""
+                )
+              ) : (
+                ""
+              )}
+            </>
+          );
+        })}
       </EveningBox>
     </Container>
   );
@@ -79,11 +121,18 @@ const EveningPartBox = styled.div`
   margin: auto 0 auto 15px;
 `;
 
-const UserBox = styled.div`
+const UserBox = styled.div<UserColor>`
   width: 60px;
   height: 32px;
   display: flex;
-  background-color: ${yellow};
+  background-color: ${(props) =>
+    props.name === "수진"
+      ? yellow
+      : props.name === "태훈"
+      ? green
+      : props.name === "유정"
+      ? sky
+      : brown};
   border-radius: 10px;
 `;
 
