@@ -43,6 +43,7 @@ const Cells = ({
     for (let i = 0; i < 7; i++) {
       formatDate = format(day, "d");
       const cloneDay = day;
+      const string = cloneDay.toDateString();
       days.push(
         <Container>
           <CellBox
@@ -60,38 +61,53 @@ const Cells = ({
               onDateClick(cloneDay);
             }}
           >
-            <Square>
-              <Morning
-                name={"gray"}
-                className={
-                  format(currentMonth, "M") !== format(day, "M")
-                    ? "text not-valid"
-                    : ""
-                }
-              ></Morning>
-              <Evening
-                name={"gray"}
-                className={
-                  format(currentMonth, "M") !== format(day, "M")
-                    ? "text not-valid"
-                    : ""
-                }
-              ></Evening>
-            </Square>
             <span
               className={`
-                ${
-                  format(currentMonth, "M") !== format(day, "M")
-                    ? "text not-valid"
-                    : !isSameDay(day, selectedDate)
-                    ? "none"
-                    : isSameDay(day, selectedDate)
-                    ? "textselect"
-                    : ""
-                }`}
+            ${
+              format(currentMonth, "M") !== format(day, "M")
+                ? "text not-valid"
+                : !isSameDay(day, selectedDate)
+                ? "none"
+                : isSameDay(day, selectedDate)
+                ? "textselect"
+                : ""
+            }`}
             >
               {formatDate}
             </span>
+            <Square>
+              {schedule.map((el: any) => {
+                return (
+                  <>
+                    {string === el.day ? (
+                      el.time === "morn" ? (
+                        <Morning
+                          name={el.name}
+                          className={
+                            format(currentMonth, "M") !== format(day, "M")
+                              ? "text not-valid"
+                              : ""
+                          }
+                        ></Morning>
+                      ) : el.time === "even" ? (
+                        <Evening
+                          name={el.name}
+                          className={
+                            format(currentMonth, "M") !== format(day, "M")
+                              ? "text not-valid"
+                              : ""
+                          }
+                        ></Evening>
+                      ) : (
+                        ""
+                      )
+                    ) : (
+                      ""
+                    )}
+                  </>
+                );
+              })}
+            </Square>
           </CellBox>
         </Container>
       );
