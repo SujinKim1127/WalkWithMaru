@@ -17,7 +17,7 @@ const Days = () => {
 const Container = styled.div`
   display: flex;
   .col {
-    width: 50px;
+    width: 45px;
   }
   margin-bottom: 10px;
   font-size: 14px;

@@ -9,6 +9,8 @@ import {
 } from "date-fns";
 import styled from "styled-components";
 import color from "../util/color";
+import { dbService } from "../firebase";
+import { useEffect, useRef, useState } from "react";
 
 const { green, sky, purple, yellow, pink, brown } = color;
 
@@ -33,16 +35,38 @@ const Cells = ({
   const monthEnd = endOfMonth(monthStart);
   const startDate = startOfWeek(monthStart);
   const endDate = endOfWeek(monthEnd);
+  const [data, setData] = useState<any>([]);
+  const [selectday, setSelectday] = useState(new Date());
+  const [state, setState] = useState(false);
+  const statedayRef = useRef<string>("");
 
   const rows = [];
   let days = [];
   let day = startDate;
   let formatDate = "";
   console.log("cell schedule", schedule);
+
+  // useEffect(() => {
+  //   dbService.collection("days").onSnapshot((snapshot) => {
+  //     snapshot.docs.map((doc) => {
+  //       setData((prev: any) => [doc.id, ...prev]);
+  //     });
+  //   });
+  // }, []);
+
+  useEffect(() => {
+    schedule.map((el: any) => {
+      setData((prev: any) => [el.day, ...prev]);
+    });
+  }, [schedule]);
+
+  console.log("data", data);
+
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
       formatDate = format(day, "d");
       const cloneDay = day;
+      statedayRef.current = day.toDateString();
       const string = cloneDay.toDateString();
       days.push(
         <Container>
@@ -76,37 +100,62 @@ const Cells = ({
               {formatDate}
             </span>
             <Square>
-              {schedule.map((el: any) => {
-                return (
-                  <>
-                    {string === el.day ? (
-                      el.time === "morn" ? (
-                        <Morning
-                          name={el.name}
-                          className={
-                            format(currentMonth, "M") !== format(day, "M")
-                              ? "text not-valid"
-                              : ""
-                          }
-                        ></Morning>
-                      ) : el.time === "even" ? (
-                        <Evening
-                          name={el.name}
-                          className={
-                            format(currentMonth, "M") !== format(day, "M")
-                              ? "text not-valid"
-                              : ""
-                          }
-                        ></Evening>
-                      ) : (
-                        ""
-                      )
-                    ) : (
-                      ""
-                    )}
-                  </>
-                );
-              })}
+              {data.indexOf(string) !== -1 ? (
+                <>
+                  {" "}
+                  {schedule.map((el: any) => {
+                    return (
+                      <>
+                        {string === el.day ? (
+                          el.time === "even" ? (
+                            <Evening
+                              name={el.name}
+                              className={
+                                format(currentMonth, "M") !== format(day, "M")
+                                  ? "text not-valid"
+                                  : ""
+                              }
+                            ></Evening>
+                          ) : el.time === "morn" ? (
+                            <Morning
+                              name={el.name}
+                              className={
+                                format(currentMonth, "M") !== format(day, "M")
+                                  ? "text not-valid"
+                                  : ""
+                              }
+                            ></Morning>
+                          ) : (
+                            ""
+                          )
+                        ) : (
+                          ""
+                        )}
+                      </>
+                    );
+                  })}
+                </>
+              ) : (
+                ""
+                // <>
+                //   <Morning
+                //     name="gray"
+                //     className={
+                //       format(currentMonth, "M") !== format(day, "M")
+                //         ? "text not-valid"
+                //         : ""
+                //     }
+                //   ></Morning>
+                //   <Evening
+                //     name="gray"
+                //     className={
+                //       format(currentMonth, "M") !== format(day, "M")
+                //         ? "text not-valid"
+                //         : ""
+                //     }
+                //   ></Evening>
+                // </>
+              )}
             </Square>
           </CellBox>
         </Container>
@@ -147,7 +196,7 @@ const Container = styled.div`
 `;
 
 const CellBox = styled.div`
-  width: 50px;
+  width: 45px;
   display: flex;
   flex-direction: column;
 `;
@@ -166,9 +215,9 @@ const Square = styled.div`
 `;
 
 const Morning = styled.div<UserColor>`
-  border-radius: 4px;
-  width: 20px;
-  height: 10px;
+  border-radius: 3px;
+  width: 17px;
+  height: 8px;
   background-color: ${(props) =>
     props.name === "수진"
       ? yellow
@@ -182,9 +231,9 @@ const Morning = styled.div<UserColor>`
 `;
 
 const Evening = styled.div<UserColor>`
-  border-radius: 4px;
-  width: 20px;
-  height: 10px;
+  border-radius: 3px;
+  width: 17px;
+  height: 8px;
   background-color: ${(props) =>
     props.name === "수진"
       ? yellow
