@@ -30,7 +30,14 @@ const Member = ({ selectedDate }: SProps) => {
       <MemberBox>
         <UserBox>
           <PersonalBox color={green}>
-            <UserNametxt>태훈&nbsp;</UserNametxt>
+            <UserNametxt
+              onClick={() => {
+                setIsTimeOpen(true);
+                setClickname("태훈");
+              }}
+            >
+              태훈&nbsp;
+            </UserNametxt>
             <UserPlusbtn>
               <Icon
                 icon="ic:round-plus"
@@ -42,7 +49,14 @@ const Member = ({ selectedDate }: SProps) => {
             </UserPlusbtn>
           </PersonalBox>
           <PersonalBox color={sky}>
-            <UserNametxt>유정&nbsp;</UserNametxt>
+            <UserNametxt
+              onClick={() => {
+                setIsTimeOpen(true);
+                setClickname("유정");
+              }}
+            >
+              유정&nbsp;
+            </UserNametxt>
             <UserPlusbtn>
               <Icon
                 icon="ic:round-plus"
@@ -54,7 +68,14 @@ const Member = ({ selectedDate }: SProps) => {
             </UserPlusbtn>
           </PersonalBox>
           <PersonalBox color={brown}>
-            <UserNametxt>지은&nbsp;</UserNametxt>
+            <UserNametxt
+              onClick={() => {
+                setIsTimeOpen(true);
+                setClickname("지은");
+              }}
+            >
+              지은&nbsp;
+            </UserNametxt>
             <UserPlusbtn>
               <Icon
                 icon="ic:round-plus"
@@ -66,7 +87,14 @@ const Member = ({ selectedDate }: SProps) => {
             </UserPlusbtn>
           </PersonalBox>
           <PersonalBox color={yellow}>
-            <UserNametxt>수진&nbsp;</UserNametxt>
+            <UserNametxt
+              onClick={() => {
+                setIsTimeOpen(true);
+                setClickname("수진");
+              }}
+            >
+              수진&nbsp;
+            </UserNametxt>
             <UserPlusbtn>
               <Icon
                 icon="ic:round-plus"
@@ -92,7 +120,7 @@ const Member = ({ selectedDate }: SProps) => {
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  width: 350px;
+  width: 315px;
   border-top: 1px solid black;
   margin: 0 auto;
   flex-direction: column;
