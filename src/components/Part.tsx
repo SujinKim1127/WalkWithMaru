@@ -80,8 +80,8 @@ const Part = ({ selectedDate }: DProps) => {
 };
 
 const Container = styled.div`
-  margin: 10px auto;
-  width: 350px;
+  margin: 0 auto 10px auto;
+  width: 315px;
   display: flex;
   flex-direction: column;
   justify-content: center;

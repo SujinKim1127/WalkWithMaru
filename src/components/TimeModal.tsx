@@ -15,12 +15,8 @@ const TimeModal = ({
   isTimeOpen,
   setIsTimeOpen,
 }: TProps) => {
-  console.log("name", name);
-
   const [morn, setMorn] = useState("morn");
   const openModalHandler = () => {
-    console.log("name", name);
-
     setIsTimeOpen(!isTimeOpen);
   };
 
@@ -90,7 +86,7 @@ const ModalBackdrop = styled.div`
 
 const ModalView = styled.div`
   width: 150px;
-  height: 100px;
+  height: 110px;
   background-color: white;
   &.fail {
     height: 120px;
@@ -100,8 +96,8 @@ const ModalView = styled.div`
 const ModalContent = styled.div`
   display: flex;
   justify-content: center;
-  font-size: 13px;
-  padding: 20px 0 0px;
+  font-size: 16px;
+  padding: 20px 0 10px 0;
   margin: 0 20px;
   &.fail {
     border: none;

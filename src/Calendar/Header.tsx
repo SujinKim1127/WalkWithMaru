@@ -25,6 +25,7 @@ const Header = ({ currentMonth, setCurrentMonth }: MProps) => {
       </DateBox>
       <ArrowBox>
         <Icon
+          className="left"
           icon="material-symbols:arrow-back-ios-new-rounded"
           onClick={prevMonth}
         />
@@ -41,6 +42,10 @@ const Container = styled.div`
   display: flex;
   padding: 0 10px 0 15px;
   margin-bottom: 10px;
+
+  .left {
+    margin-right: 10px;
+  }
 `;
 
 const DateBox = styled.div`
