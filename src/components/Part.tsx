@@ -24,7 +24,6 @@ const Part = ({ selectedDate }: DProps) => {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log("newArray", newArray);
       setSchedule(newArray);
     });
   }, []);

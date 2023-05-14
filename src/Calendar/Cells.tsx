@@ -9,7 +9,6 @@ import {
 } from "date-fns";
 import styled from "styled-components";
 import color from "../util/color";
-import { dbService } from "../firebase";
 import { useEffect, useRef, useState } from "react";
 
 const { green, sky, purple, yellow, pink, brown } = color;
@@ -44,23 +43,12 @@ const Cells = ({
   let days = [];
   let day = startDate;
   let formatDate = "";
-  console.log("cell schedule", schedule);
-
-  // useEffect(() => {
-  //   dbService.collection("days").onSnapshot((snapshot) => {
-  //     snapshot.docs.map((doc) => {
-  //       setData((prev: any) => [doc.id, ...prev]);
-  //     });
-  //   });
-  // }, []);
 
   useEffect(() => {
     schedule.map((el: any) => {
       setData((prev: any) => [el.day, ...prev]);
     });
   }, [schedule]);
-
-  console.log("data", data);
 
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {

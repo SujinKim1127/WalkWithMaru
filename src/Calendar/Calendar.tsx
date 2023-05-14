@@ -29,7 +29,6 @@ const Calendar = ({
         id: doc.id,
         ...doc.data(),
       }));
-      console.log("newArray", newArray);
       setSchedule(newArray);
     });
   }, []);

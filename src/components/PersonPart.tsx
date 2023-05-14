@@ -24,7 +24,6 @@ export interface DProps {
 const PersonPart = ({ daytimedata }: DProps) => {
   const onDeleteClick = async () => {
     const data = await dbService.doc(`days/${daytimedata.id}`).delete();
-    console.log("data", data);
   };
 
   return (
