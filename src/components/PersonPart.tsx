@@ -28,7 +28,9 @@ const PersonPart = ({ daytimedata }: DProps) => {
 
   return (
     <UserBox name={daytimedata.name}>
-      <UserNametxt>{daytimedata.name}&nbsp;</UserNametxt>
+      <UserNametxt onClick={onDeleteClick}>
+        {daytimedata.name}&nbsp;
+      </UserNametxt>
       <UserDeletebtn>
         <Icon onClick={onDeleteClick} icon="ic:round-close" />
       </UserDeletebtn>
