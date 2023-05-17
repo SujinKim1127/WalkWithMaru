@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/walkwithmaru/static/css/main.7720b279.css",
-    "main.js": "/walkwithmaru/static/js/main.ecf77ed5.js",
+    "main.js": "/walkwithmaru/static/js/main.7f5128ba.js",
     "static/js/787.f93e22db.chunk.js": "/walkwithmaru/static/js/787.f93e22db.chunk.js",
     "index.html": "/walkwithmaru/index.html",
     "main.7720b279.css.map": "/walkwithmaru/static/css/main.7720b279.css.map",
-    "main.ecf77ed5.js.map": "/walkwithmaru/static/js/main.ecf77ed5.js.map",
+    "main.7f5128ba.js.map": "/walkwithmaru/static/js/main.7f5128ba.js.map",
     "787.f93e22db.chunk.js.map": "/walkwithmaru/static/js/787.f93e22db.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7720b279.css",
-    "static/js/main.ecf77ed5.js"
+    "static/js/main.7f5128ba.js"
   ]
 }
